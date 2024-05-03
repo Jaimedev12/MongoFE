@@ -1,0 +1,76 @@
+get http://localhost:3001/api/products/
+
+###
+get http://localhost:3001/products/662d836aaeabbfab35debe44
+
+###
+get http://localhost:3001/products/66232c68f0
+
+###
+get http://localhost:3001/api/users
+
+
+
+###
+delete http://localhost:3001/products/662c735d7ba4a6fee6b73870
+
+###
+post http://localhost:3001/api/products/
+Content-Type: application/json
+
+{
+   "content":{
+      "producto":"Procesador",
+      "precio":1800
+   },
+   "userId":"662c3e36068889a1830c1ca0"
+}
+
+
+###
+post http://localhost:3001/api/products/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2NjJmZWI3ZWEwZmIyYjMxMzFkZWM0YzAiLCJpYXQiOjE3MTQ1MDI2MDh9.jOitlXl9w3bP4SJv40QL5qNF2cgbCqTi2NAZ2d-UDI0
+
+{
+   "content":{
+      "producto":"Monitor",
+      "precio":2000
+   },
+   "userId":"662c3e36068889a1830c1ca0"
+}
+
+
+###
+put http://localhost:3001/products/662d836aaeabbfab35debe44
+Content-Type: application/json
+
+{
+   "content":{
+      "producto":"Procesador",
+      "precio":5800
+   }
+}
+  
+
+
+###
+post http://localhost:3001/api/users 
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "name": "Superuser",
+  "password": "admin",
+  "rol":"root"
+}
+
+###
+post http://localhost:3001/login 
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
