@@ -56,7 +56,7 @@ function App() {
             setUsername("");
             setPassword("");
         } catch (exception) {
-            setErrorMessage("Wrong credentials");
+			alert("Usuario o contraseña incorrectos")
             setUsername("");
             setPassword("");
             setTimeout(() => {
@@ -82,7 +82,7 @@ function App() {
     const loginForm = () => (
         <div className="container">
             <Notification mensaje={errorMessage} />
-            <Form onSubmit={handleLogin}>
+            <Form onSubmit={handleLogin} className="mt-5">
                 <Form.Group
                     className="mb-3"
                     controlId="exampleForm.ControlInput1"
@@ -95,25 +95,19 @@ function App() {
                         onChange={({ target }) => setUsername(target.value)}
                     />
                 </Form.Group>
-                <Form.Group
-                    as={Row}
-                    className="mb-3"
-                    controlId="formPlaintextPassword"
-                >
+                <Form.Group className="mb-3" controlId="formPlaintextPassword">
                     <Form.Label column sm="2">
                         Contraseña
                     </Form.Label>
-                    <Col sm="10">
-                        <Form.Control
-                            type="password"
-                            placeholder="Contraseña"
-                            value={password}
-                            onChange={({ target }) => setPassword(target.value)}
-                        />
-                    </Col>
+                    <Form.Control
+                        type="password"
+                        placeholder="Contraseña"
+                        value={password}
+                        onChange={({ target }) => setPassword(target.value)}
+                    />
                 </Form.Group>
-                <Button type="submit" variant="primary">
-                    Primary
+                <Button className="mt-3" type="submit" variant="primary">
+                    Iniciar Sesión
                 </Button>
             </Form>
         </div>
@@ -128,7 +122,9 @@ function App() {
                 loginForm()
             ) : (
                 <div>
-                    <p className="mt-3 mx-3 text-justify text-left font-weight-light">{user.name} logged-in</p>
+                    <p className="mt-3 mx-3 text-justify text-left font-weight-light">
+                        {user.name} logged-in
+                    </p>
                     {productsForm()}
                 </div>
             )}
