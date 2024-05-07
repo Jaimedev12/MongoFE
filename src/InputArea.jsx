@@ -1,22 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import productService from "./services/productos";
 
-const InputArea = (props) => {
-    const [items, setItems] = useState(props.productos);
+const InputArea = ({productos, setProductos}) => {
+    const [items, setItems] = useState(productos);
     const [newItem, setNewItem] = useState("");
+    const [precio, setPrecio] = useState(0);
+
+    useEffect(() => {
+		setItems(productos);
+    }, [productos]);
 
     const addItem = (event) => {
-        console.log(items);
-        console.log(newItem);
-
         event.preventDefault();
+
+        if (newItem === "" || precio === 0) {
+            alert("Por favor, ingrese un producto y un precio");
+            return;
+        }
+
         const itemObject = {
             id: items.length + 1,
             producto: newItem,
-            precio: 120,
+            precio: precio,
         };
-        setItems(items.concat(itemObject));
-        setNewItem("");
+
+        const dataForApi = {
+            producto: newItem,
+            precio: precio,
+        };
+
+        productService
+            .addProduct(dataForApi)
+            .then((response) => {
+                const newItems = items.concat(itemObject);
+                setItems(newItems);
+                setProductos(newItems);
+                setNewItem("");
+                setPrecio(0);
+            })
+            .catch((error) => {
+                console.log("error", error);
+            });
     };
 
     const handleItemChange = (event) => {
@@ -45,6 +69,8 @@ const InputArea = (props) => {
                             className="form-control"
                             id="inlineFormInputGroupUsername1"
                             placeholder="precio"
+                            value={precio}
+                            onChange={(e) => setPrecio(e.target.value)}
                         />
                     </div>
                 </div>
@@ -55,22 +81,6 @@ const InputArea = (props) => {
                     </button>
                 </div>
             </form>
-
-            <button
-                onClick={() => {
-                    productService
-                        .getAllProducts()
-                        .then((response) => {
-                            console.log("----v");
-                            console.log(response);
-                        })
-                        .catch((error) => {
-                            console.log("error", error);
-                        });
-                }}
-            >
-                Debug
-            </button>
         </>
     );
 };
